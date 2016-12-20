@@ -53,53 +53,53 @@ class {{cookiecutter.driver_name}} (ResourceDriverInterface):
         '''
         return AutoLoadDetails([], [])
 
-# </editor-fold>
+    # </editor-fold>
 
-# <editor-fold desc="Orchestration Save and Restore Standard">
-def orchestration_save(self, context, cancellation_context, mode, custom_params):
-  """
-  Saves the Shell state and returns a description of the saved artifacts and information
-  This command is intended for API use only by sandbox orchestration scripts to implement
-  a save and restore workflow
-  :param ResourceCommandContext context: the context object containing resource and reservation info
-  :param CancellationContext cancellation_context: Object to signal a request for cancellation. Must be enabled in drivermetadata.xml as well
-  :param str mode: Snapshot save mode, can be one of two values 'shallow' (default) or 'deep'
-  :param str custom_params: Set of custom parameters for the save operation
-  :return: SavedResults serialized as JSON
-  :rtype: OrchestrationSaveResult
-  """
+    # <editor-fold desc="Orchestration Save and Restore Standard">
+    def orchestration_save(self, context, cancellation_context, mode, custom_params):
+      """
+      Saves the Shell state and returns a description of the saved artifacts and information
+      This command is intended for API use only by sandbox orchestration scripts to implement
+      a save and restore workflow
+      :param ResourceCommandContext context: the context object containing resource and reservation info
+      :param CancellationContext cancellation_context: Object to signal a request for cancellation. Must be enabled in drivermetadata.xml as well
+      :param str mode: Snapshot save mode, can be one of two values 'shallow' (default) or 'deep'
+      :param str custom_params: Set of custom parameters for the save operation
+      :return: SavedResults serialized as JSON
+      :rtype: OrchestrationSaveResult
+      """
 
-  # See below an example implementation, here we use jsonpickle for serialization,
-  # to use this sample, you'll need to add jsonpickle to your requirements.txt file
-  # The JSON schema is defined at:
-  # https://github.com/QualiSystems/sandbox_orchestration_standard/blob/master/save%20%26%20restore/saved_artifact_info.schema.json
-  # You can find more information and examples examples in the spec document at
-  # https://github.com/QualiSystems/sandbox_orchestration_standard/blob/master/save%20%26%20restore/save%20%26%20restore%20standard.md
-  '''
-        # By convention, all dates should be UTC
-        created_date = datetime.datetime.utcnow()
+      # See below an example implementation, here we use jsonpickle for serialization,
+      # to use this sample, you'll need to add jsonpickle to your requirements.txt file
+      # The JSON schema is defined at:
+      # https://github.com/QualiSystems/sandbox_orchestration_standard/blob/master/save%20%26%20restore/saved_artifact_info.schema.json
+      # You can find more information and examples examples in the spec document at
+      # https://github.com/QualiSystems/sandbox_orchestration_standard/blob/master/save%20%26%20restore/save%20%26%20restore%20standard.md
+      '''
+            # By convention, all dates should be UTC
+            created_date = datetime.datetime.utcnow()
 
-        # This can be any unique identifier which can later be used to retrieve the artifact
-        # such as filepath etc.
+            # This can be any unique identifier which can later be used to retrieve the artifact
+            # such as filepath etc.
 
-        # By convention, all dates should be UTC
-        created_date = datetime.datetime.utcnow()
+            # By convention, all dates should be UTC
+            created_date = datetime.datetime.utcnow()
 
-        # This can be any unique identifier which can later be used to retrieve the artifact
-        # such as filepath etc.
-        identifier = created_date.strftime('%y_%m_%d %H_%M_%S_%f')
+            # This can be any unique identifier which can later be used to retrieve the artifact
+            # such as filepath etc.
+            identifier = created_date.strftime('%y_%m_%d %H_%M_%S_%f')
 
-        orchestration_saved_artifact = OrchestrationSavedArtifact('REPLACE_WITH_ARTIFACT_TYPE', identifier)
+            orchestration_saved_artifact = OrchestrationSavedArtifact('REPLACE_WITH_ARTIFACT_TYPE', identifier)
 
-        saved_artifacts_info = OrchestrationSavedArtifactInfo(
-            resource_name="some_resource",
-            created_date=created_date,
-            restore_rules=OrchestrationRestoreRules(requires_same_resource=True),
-            saved_artifact=orchestration_saved_artifact)
+            saved_artifacts_info = OrchestrationSavedArtifactInfo(
+                resource_name="some_resource",
+                created_date=created_date,
+                restore_rules=OrchestrationRestoreRules(requires_same_resource=True),
+                saved_artifact=orchestration_saved_artifact)
 
-        return OrchestrationSaveResult(saved_artifacts_info)
-        '''
-        pass
+            return OrchestrationSaveResult(saved_artifacts_info)
+      '''
+      pass
 
     def orchestration_restore(self, context, cancellation_context, saved_artifact_info, custom_params):
         """
