@@ -10,7 +10,7 @@ description: >
   TOSCA based resource shell
 
 imports:
-  - cloudshell_standard: cloudshell_resource_standard_2_0_2.yaml
+  - cloudshell_standard: cloudshell_resource_standard_2_0_3.yaml
 
 node_types:
 
